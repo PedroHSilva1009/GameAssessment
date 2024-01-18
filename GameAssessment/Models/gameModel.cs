@@ -1,10 +1,12 @@
 namespace GameAssessment.Models
 {
-    public class gameModel{
-        private string gameId {get; set;}
-        private string gameName {get; set;}
-        private DateTime releaseDate {get; set;}
-        private string producer {get; set;}
-        
+    public class Game
+    {
+        public string gameId { get; set; }
+        public string gameName { get; set; }
+        public DateTime releaseDate { get; set; }
+        public string producer { get; set; }
+        public ICollection <GameAssessmentOb> gameAssessments{ get; set; }
+        public ICollection <GameCategory> gameCategories {get; set; }
     }
 }
