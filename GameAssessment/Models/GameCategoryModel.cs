@@ -7,5 +7,11 @@ namespace GameAssessment.Models
     {
         public string game { get; set; } //gameId
         public string category { get; set; }//categoryId   
+        public GameCategory(string gameId, string categoryId)
+        {
+            this.game = gameId;
+            this.category = categoryId;
+        }
     }
+
 }
