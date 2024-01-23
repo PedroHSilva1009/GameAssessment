@@ -14,16 +14,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include = "Controllers\"/>
-    <Folder Include = "Models\"/>
-    <Folder Include = "Interfaces\"/>
-    <Folder Include = "Data\"/>
-    <Folder Include = "Repositories\"/>
+    <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

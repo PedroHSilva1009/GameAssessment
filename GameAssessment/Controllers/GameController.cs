@@ -1,45 +1,37 @@
 using GameAssessment.Interfaces;
 using GameAssessment.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Expressions;
+using System;
 
-namespace GameAssessment.Controllers
-{
+namespace GameAssessment.Controllers;
+
     [ApiController]
-    [Route("/games")]
-    public class GameController : ControllerBase{
+    [Route("games")]    
+    public class GameController : Controller{
+        
         private readonly IGameRepository _gameRepository;
-        public GameController(IGameRepository gameRepository)
-        {
-            _gameRepository = gameRepository;      
+        public GameController(IGameRepository gameRepository){
+            _gameRepository = gameRepository;
         }
 
-        [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ICollection<GameController>))]
-        public IActionResult getAllGames(){
-            var games = _gameRepository.GetAllGames();
 
-            if(!ModelState.IsValid)
-                return BadRequest(ModelState);
+
+        [HttpGet]
+        public IActionResult getAllGames(){
+            var games = _gameRepository.get();
             
             return Ok(games);
         }
 
+
         [HttpPost]
-        public IActionResult AddGame(Game gameBody){
+        public IActionResult AddGame(Game reqBody){   
+            Game game = new Game(reqBody.gameName, reqBody.releaseDate, reqBody.producer);
+            _gameRepository.add(game);
+            return Ok(game);
+            }
 
-                try
-                {    
-                    Game game = new Game(gameBody.gameName, gameBody.releaseDate, gameBody.producer, gameBody.gameAssessments, gameBody.gameCategories);
-                    _gameRepository.addGame(game);
-
-                    return Ok(game);
-                }
-                catch (System.Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-
-            return;
         }
-    }
-}
+    

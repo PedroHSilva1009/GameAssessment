@@ -4184,6 +4184,7 @@
       "Microsoft.AspNetCore.OpenApi >= 8.0.1",
       "Microsoft.EntityFrameworkCore >= 8.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.1",
+      "MySql.Data >= 8.3.0",
       "MySql.EntityFrameworkCore >= 8.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
@@ -4238,6 +4239,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[8.0.1, )"
+          },
+          "MySql.Data": {
+            "target": "Package",
+            "version": "[8.3.0, )"
           },
           "MySql.EntityFrameworkCore": {
             "target": "Package",

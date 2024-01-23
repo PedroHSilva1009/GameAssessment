@@ -5,16 +5,14 @@ namespace GameAssessment.Data
 {
     public class DataContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder.UseMySQL("Server:localhost;Port:3306;Database=GameAssessment;User=aluno;Password=aluno"));
-        }
-        
-        public DbSet<User> users { get; set; }
-        public DbSet<Game> games { get; set; }
-        public DbSet<GameCategory> gameCategories { get; set; }
-        public DbSet<Category> categories { get; set; }
-        public DbSet<GameAssessmentOb> gameAssessments { get; set; }
+        public DbSet<User> user { get; set; }
+        public DbSet<Game> game { get; set; }
+        public DbSet<GameCategory> gameCategory { get; set; }
+        public DbSet<Category> category { get; set; }
+        public DbSet<GameAssessmentOb> gameassessment { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            =>optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=gameassessment;User Id=aluno;Password=aluno");
+        
     }
 }
