@@ -14,5 +14,12 @@ namespace GameAssessment.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             =>optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=gameassessment;User Id=aluno;Password=aluno");
         
+         protected override void OnModelCreating(ModelBuilder modelBuilder){
+            modelBuilder.Entity<GameAssessmentOb>()
+                .HasKey(e => new { e.user, e.game });
+
+            modelBuilder.Entity<GameCategory>()
+                .HasKey(e => new {e.game, e.category});
+            }
     }
 }

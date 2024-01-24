@@ -12,6 +12,10 @@ namespace GameAssessment.Models
             this.game = gameId;
             this.category = categoryId;
         }
+
+        public GameCategory(){
+
+        }
     }
 
 }

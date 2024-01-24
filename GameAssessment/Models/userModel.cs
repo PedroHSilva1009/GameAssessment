@@ -24,5 +24,9 @@ namespace GameAssessment.Models
             this.acessLevel = acessLevel;
             this.GameAssessments = GameAssessments;
         }
+
+        public User(){
+
+        }
     }   
 }

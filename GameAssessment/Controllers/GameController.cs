@@ -28,9 +28,18 @@ namespace GameAssessment.Controllers;
 
         [HttpPost]
         public IActionResult AddGame(Game reqBody){   
-            Game game = new Game(reqBody.gameName, reqBody.releaseDate, reqBody.producer);
-            _gameRepository.add(game);
-            return Ok(game);
+                try
+                {
+                    string gameId = Guid.NewGuid().ToString();
+                    Game game = new Game(gameId, reqBody.gameName, reqBody.releaseDate, reqBody.producer);
+                    _gameRepository.add(game);
+                    return Ok(game);
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                return BadRequest();
             }
 
         }

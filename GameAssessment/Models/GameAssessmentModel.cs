@@ -1,5 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace GameAssessment.Models
 {
+
+    [Table("gameassessment")]
     public class GameAssessmentOb
     {
         public string user { get; set; } //userId
@@ -16,5 +21,10 @@ namespace GameAssessment.Models
             this.gameAssessment = gameAssessment;
             this.hoursPlayed = hoursPlayed;
         }
+
+        public GameAssessmentOb(){
+
+        }
+
     }
 }
