@@ -68,9 +68,9 @@ namespace GameAssessment.Controllers;
 
         [HttpDelete("{gameid}")]
         public IActionResult deleteGame(){
-            String gameId = HttpContext.Request.RouteValues["gameId"].ToString();
+            string gameId = HttpContext.Request.RouteValues["gameId"].ToString();
 
-            var gameFound = _gameRepository.get().Where(x => x.gameId==gameId).ToList();
+            var gameFound = _gameRepository.get().Where(gameDb => gameDb.gameId==gameId).ToList();
 
             if(gameFound.Count <= 0 || gameFound.Equals(null)){
                 return NotFound();
@@ -81,6 +81,19 @@ namespace GameAssessment.Controllers;
             _gameRepository.deleteGame(game);
 
             return Ok("Deletado");
+        }
+
+        [HttpGet("{gameId}")]
+        public IActionResult findGameById(){
+            string gameId = HttpContext.Request.RouteValues["gameId"].ToString();
+
+            var gameFound = _gameRepository.get().Where(gameDb => gameDb.gameId == gameId).ToList();
+
+            if(gameFound.Count <= 0 || gameFound.Equals(null)){
+                return NotFound("Game not found");
+            }
+
+            return Ok(gameFound);
         }
 
     }
