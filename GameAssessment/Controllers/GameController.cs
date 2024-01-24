@@ -1,5 +1,7 @@
+using GameAssessment.Data;
 using GameAssessment.Interfaces;
 using GameAssessment.Models;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Expressions;
@@ -42,5 +44,44 @@ namespace GameAssessment.Controllers;
                 return BadRequest();
             }
 
+
+        [HttpPut("{gameId}")]
+        public IActionResult updateGame(Game reqBody){
+            String gameId = HttpContext.Request.RouteValues["gameId"].ToString();
+
+            var gameFound = _gameRepository.get().Where(x => x.gameId == gameId).ToList();
+
+            if(gameFound.Count <= 0 || gameFound.Equals(null)){
+                return NotFound();
+            }
+
+            var game = gameFound[0];
+
+            game.gameName = reqBody.gameName;
+            game.releaseDate = reqBody.releaseDate;
+            game.producer = reqBody.producer;
+
+            _gameRepository.update(game);            
+
+            return Ok(game);
         }
+
+        [HttpDelete("{gameid}")]
+        public IActionResult deleteGame(){
+            String gameId = HttpContext.Request.RouteValues["gameId"].ToString();
+
+            var gameFound = _gameRepository.get().Where(x => x.gameId==gameId).ToList();
+
+            if(gameFound.Count <= 0 || gameFound.Equals(null)){
+                return NotFound();
+            }
+
+            var game = gameFound[0];
+
+            _gameRepository.deleteGame(game);
+
+            return Ok("Deletado");
+        }
+
+    }
     
