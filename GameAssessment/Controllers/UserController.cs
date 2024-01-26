@@ -58,4 +58,31 @@ namespace GameAssessment.Controllers;
 
             return Ok(userFound);
         }
+
+        [HttpGet]
+        public IActionResult getAllUsers(){
+            var usersFound = _userRepository.get();
+
+             if(usersFound.Count()<=0){
+                return NotFound("No registered users");
+            }
+
+            return Ok(usersFound);
+        }
+
+        [HttpDelete("{userId}")]
+        public IActionResult deleteUser(){
+            string userId = HttpContext.Request.RouteValues["userId"].ToString();
+            var userFound = _userRepository.get().Where(userDb => userDb.userId == userId).ToList();
+
+            if(userFound.Count()<=0){
+                return NotFound("This user does not exist");
+            }
+
+            var userDelete = userFound[0];
+
+            _userRepository.delete(userDelete);
+
+            return Ok("User deleted");
+        }
     }

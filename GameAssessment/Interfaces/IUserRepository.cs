@@ -5,5 +5,6 @@ namespace GameAssessment.Interfaces
     public interface IUserRepository{
         void register(User user);
         ICollection<User> get();
+        void delete(User user);
     }
 }

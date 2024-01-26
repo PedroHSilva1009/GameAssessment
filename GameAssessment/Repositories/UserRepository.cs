@@ -18,4 +18,9 @@ namespace GameAssessment.Repositories;
             _context.SaveChanges();
         }
 
+        public void delete(User user){
+            _context.user.Remove(user);
+            _context.SaveChanges();
+        }
+
 }
