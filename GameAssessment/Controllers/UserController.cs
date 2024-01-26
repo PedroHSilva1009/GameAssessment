@@ -19,7 +19,9 @@ namespace GameAssessment.Controllers;
             string password = reqBody.password;
 
             var userFound = _userRepository.get().Where(userDb => (userDb.userName ==  userName || userDb.email == email) 
-                                                                   && userDb.password == password );
+                                                                   && userDb.password == password )
+                                                                   .Select(userDb => new{userDb.userId, userDb.userName, 
+                                                                   userDb.nickName, userDb.acessLevel});
 
             if(userFound.Count()<=0){
                  return NotFound("User not found, verify user name or password");
