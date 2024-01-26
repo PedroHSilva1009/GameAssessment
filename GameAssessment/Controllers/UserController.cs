@@ -21,9 +21,9 @@ namespace GameAssessment.Controllers;
             var userFound = _userRepository.get().Where(userDb => (userDb.userName ==  userName || userDb.email == email) 
                                                                    && userDb.password == password );
 
-            // if(userFound.Count()<=0){
-            //     return NotFound("User not found, verify user name or password");
-            // }
+            if(userFound.Count()<=0){
+                 return NotFound("User not found, verify user name or password");
+             }
 
             return Ok(userFound);
         }
@@ -45,7 +45,7 @@ namespace GameAssessment.Controllers;
         }
 
         [HttpGet("{userName}")]
-        public IActionResult findUserByNickName(){
+        public IActionResult findUserByUserName(){
             string userName = HttpContext.Request.RouteValues["userName"].ToString();
 
             var userFound = _userRepository.get().Where(userDb => userDb.userName == userName);
