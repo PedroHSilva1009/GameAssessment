@@ -23,6 +23,10 @@ namespace GameAssessment.Controllers;
         [HttpGet]
         public IActionResult getAllGames(){
             var games = _gameRepository.get();
+
+            if(games.Count<=0){
+                return NotFound("No games found :(");
+            }
             
             return Ok(games);
         }
@@ -30,29 +34,24 @@ namespace GameAssessment.Controllers;
 
         [HttpPost]
         public IActionResult AddGame(Game reqBody){   
-                try
-                {
-                    string gameId = Guid.NewGuid().ToString();
-                    Game game = new Game(gameId, reqBody.gameName, reqBody.releaseDate, reqBody.producer);
-                    _gameRepository.add(game);
-                    return Ok(game);
-                }
-                catch (System.Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-                return BadRequest();
+                string gameId = Guid.NewGuid().ToString();
+                Game game = new Game(gameId, reqBody.gameName, reqBody.releaseDate, reqBody.producer);
+
+                _gameRepository.add(game);
+
+                return Ok(game);
+                
             }
 
 
         [HttpPut("{gameId}")]
         public IActionResult updateGame(Game reqBody){
-            String gameId = HttpContext.Request.RouteValues["gameId"].ToString();
+            string gameId = HttpContext.Request.RouteValues["gameId"].ToString();
 
             var gameFound = _gameRepository.get().Where(x => x.gameId == gameId).ToList();
 
             if(gameFound.Count <= 0 || gameFound.Equals(null)){
-                return NotFound();
+                return NotFound("Game not found");
             }
 
             var game = gameFound[0];
@@ -73,14 +72,14 @@ namespace GameAssessment.Controllers;
             var gameFound = _gameRepository.get().Where(gameDb => gameDb.gameId==gameId).ToList();
 
             if(gameFound.Count <= 0 || gameFound.Equals(null)){
-                return NotFound();
+                return NotFound("Game not found");
             }
 
             var game = gameFound[0];
 
             _gameRepository.deleteGame(game);
 
-            return Ok("Deletado");
+            return Ok("Game deleted");
         }
 
         [HttpGet("{gameId}")]
@@ -95,6 +94,7 @@ namespace GameAssessment.Controllers;
 
             return Ok(gameFound);
         }
+
 
     }
     
