@@ -25,7 +25,7 @@ namespace GameAssessment.Controllers;
             var games = _gameRepository.get();
 
             if(games.Count<=0){
-                return NotFound("No games found :(");
+                return NotFound("No games found");
             }
             
             return Ok(games);
