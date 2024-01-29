@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 // tem que fazer um desse para cada repository, tipo um app.use do node
 builder.Services.AddTransient<IGameRepository, GameRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
