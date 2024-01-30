@@ -16,7 +16,7 @@ namespace GameAssessment.Data
         
          protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<GameAssessmentOb>()
-                .HasKey(e => new { e.user, e.game });
+                .HasKey(e => new { e.userId, e.gameId });
 
             modelBuilder.Entity<GameCategory>()
                 .HasKey(e => new {e.game, e.category});

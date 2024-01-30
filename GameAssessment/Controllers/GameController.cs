@@ -50,7 +50,7 @@ namespace GameAssessment.Controllers;
 
             var gameFound = _gameRepository.get().Where(x => x.gameId == gameId).ToList();
 
-            if(gameFound.Count <= 0 || gameFound.Equals(null)){
+            if(gameFound.Count() <= 0 || gameFound.Equals(null)){
                 return NotFound("Game not found");
             }
 

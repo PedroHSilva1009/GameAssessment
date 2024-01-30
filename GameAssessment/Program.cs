@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IGameRepository, GameRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IGameAssessmentRepository, GameAssessmentRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

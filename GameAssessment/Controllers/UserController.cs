@@ -1,5 +1,6 @@
 using GameAssessment.Interfaces;
 using GameAssessment.Models;
+using GameAssessment.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameAssessment.Controllers;
@@ -7,9 +8,11 @@ namespace GameAssessment.Controllers;
     [Route("user")]
     public class UserController : Controller{
         private readonly IUserRepository _userRepository;
+        private readonly IGameAssessmentRepository _gameAssessmentRepository;
 
-        public UserController(IUserRepository userRepository){
+        public UserController(IUserRepository userRepository, IGameAssessmentRepository gameAssessmentRepository){
             _userRepository = userRepository;
+            _gameAssessmentRepository = gameAssessmentRepository;
         }
 
         [HttpPost("login")]
@@ -50,7 +53,10 @@ namespace GameAssessment.Controllers;
         public IActionResult findUserByUserName(){
             string userName = HttpContext.Request.RouteValues["userName"].ToString();
 
-            var userFound = _userRepository.get().Where(userDb => userDb.userName == userName);
+            var userFound = _userRepository.get().Where(userDb => userDb.userName == userName).ToList();
+            ICollection<GameAssessmentOb> userAssessments = _gameAssessmentRepository.get().Where(gameAssessmentDb => gameAssessmentDb.userId == userFound[0].userId).ToList();
+
+            userFound[0].GameAssessments = userAssessments;
 
             if(userFound.Count()<=0){
                 return NotFound("User not found");
